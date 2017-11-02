@@ -11,11 +11,11 @@ struct {
 
 	SType(uint32_t instruction) {
 		BitReader reader(instruction);
-		reader.Read(imm11_5, 7);
-		reader.Read(rs2, 5);
-		reader.Read(rs1, 5);
-		reader.Read(funct3, 3);
-		reader.Read(imm4_0, 5);
 		reader.Read(opcode, 7);
+		reader.Read(imm4_0, 5);
+		reader.Read(funct3, 3);
+		reader.Read(rs1, 5);
+		reader.Read(rs2, 5);
+		reader.Read(imm11_5, 7);
 	}
 };

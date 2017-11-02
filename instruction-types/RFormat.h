@@ -11,12 +11,12 @@ struct {
 
 	RType(uint32_t instruction) {
 		BitReader reader(instruction);
-		reader.Read(funct7, 7);
-		reader.Read(rs2, 5);
-		reader.Read(rs1, 5);
-		reader.Read(funct3, 3);
-		reader.Read(rd, 5);
 		reader.Read(opcode, 7);
+		reader.Read(rd, 5);
+		reader.Read(funct3, 3);
+		reader.Read(rs1, 5);
+		reader.Read(rs2, 5);
+		reader.Read(funct7, 7);
 	};
 };
 
