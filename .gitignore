@@ -1,1 +1,3 @@
-*.out\n*.swp
+*.out
+*.swp
+.vs
