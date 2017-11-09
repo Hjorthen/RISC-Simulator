@@ -1,3 +1,7 @@
 *.out
 *.swp
 .vs
+*.vcxproj*
+*.sln*
+*.cmake
+CMake*

@@ -8,6 +8,6 @@ class IHandler{
 	
 	private:
 		void ADDI(IType& instruction, Register rs, Register& rd);
-
+		void SUBI(IType & instruction, Register rs, Register & rd);
 };
 
