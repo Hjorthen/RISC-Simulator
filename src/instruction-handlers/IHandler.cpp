@@ -34,43 +34,45 @@ void IHandler::SRAI(IType& instruction, const Register rs, Register& rd)
 
 }
 
+// Load byte
 void IHandler::LB(IType& instruction, const Register rs, Register& rd)
 {
-	rs = Memory::mem.Load(rd + instruction.imm);
+	rd = Memory::mem.Load<int8_t>(rs + instruction.imm);
 }
 
-void IHandler::LHW(IType& instruction, const Register rs, Register& rd)
+// Load halfword 
+void IHandler::LH(IType& instruction, const Register rs, Register& rd)
 {
-
+	rd = Memory::mem.Load<int16_t>(rs + instruction.imm);
 }
 
 void IHandler::LW(IType& instruction, const Register rs, Register& rd)
 {
-
+	rd = Memory::mem.Load<int32_t>(rs + instruction.imm);
 }
 
 void IHandler::LBU(IType& instruction, const Register rs, Register& rd)
 {
-
+	rd = Memory::mem.Load<uint8_t>(rs + instruction.imm);
 }
 
-void IHandler::LHWU(IType& instruction, const Register rs, Register& rd)
+void IHandler::LHU(IType& instruction, const Register rs, Register& rd)
 {
-
+	rd = Memory::mem.Load<uint16_t>(rs + instruction.imm);
 }
 
-void IHandler::XORIM(IType& instruction, const Register rs, Register& rd)
+void IHandler::XORI(IType& instruction, const Register rs, Register& rd)
 {
-
+	rd = rs ^ instruction.imm;
 }
 
-void IHandler::ORIM(IType& instruction, const Register rs, Register& rd)
+void IHandler::ORI(IType& instruction, const Register rs, Register& rd)
 {
-
+	rd = rs | instruction.imm;
 }
 
-void IHandler::ANDIM(IType& instruction, const Register rs, Register& rd)
+void IHandler::ANDI(IType& instruction, const Register rs, Register& rd)
 {
-
+	rd = rs & instruction.imm;
 }
 

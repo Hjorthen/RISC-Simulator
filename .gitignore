@@ -5,3 +5,5 @@
 *.sln*
 *.cmake
 CMake*
+Win32/*
+*.dir/*
