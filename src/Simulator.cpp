@@ -15,10 +15,10 @@ void Simulator::execute(Instruction i) {
 	case 0b0010011:
 	{
 		IType iType(i);
-				Register& rd = context.regi[iType.rd];
-				Register wd = context.regi[iType.rs1];
-				handler.Handle(iType, wd, rd);
-				break;
+		Register& rd = context.regi[iType.rd];
+		Register wd = context.regi[iType.rs1];
+		handler.Handle(iType, wd, rd);
+		break;
 	}
 		
 		// S-instruction
