@@ -12,5 +12,8 @@ class Simulator{
 	Context context;
 	IHandler handler;
 	public: 
+		typedef Register* RegisterIterator;
 		void execute(Instruction i);
+		RegisterIterator RegisterBegin() { return context.regi; }
+		RegisterIterator RegisterEnd() { return context.regi + 32; }
 };

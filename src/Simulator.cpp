@@ -26,5 +26,4 @@ void Simulator::execute(Instruction i) {
 		break;
 
 	}
-};
-
+}

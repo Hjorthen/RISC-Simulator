@@ -14,6 +14,11 @@ int main(int argc, char** argv) {
 		while (!dataStream.eof) {
 			dataStream >> ins;
 			simulator.execute(ins);
+		}	
+		std::ofstream dump;
+		dump.open("result.bin", std::ios::binary);
+		for (Simulator::RegisterIterator itr = simulator.RegisterBegin();itr != simulator.RegisterEnd();++itr) {
+			dump << *itr;
 		}
 	}
 }
