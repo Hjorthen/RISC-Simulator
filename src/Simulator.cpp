@@ -1,5 +1,5 @@
 #include "Simulator.h"
-#include "instruction-types\IType.h"
+#include "instruction-types/IType.h"
 
 void Simulator::execute(Instruction i) {
 	uint32_t opcode = i & opcodeMask;
@@ -20,7 +20,12 @@ void Simulator::execute(Instruction i) {
 		handler.Handle(iType, wd, rd);
 		break;
 	}
-		
+	// ECALL
+	case 1110011:
+	{
+		isRunning = false;
+		break;
+	}	
 		// S-instruction
 	case 0b0100011:
 		break;

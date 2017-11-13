@@ -7,37 +7,32 @@ void IHandler::Handle(IType & instruction, Register rs, Register & rd)
 		switch (instruction.funct3) {
 			case 000:
 			{
-				LB(instruction, rs, rd);
+				LB(instruction.imm, rs, rd);
 				break;
 			}
 			case 001:
 			{
-				LH(instruction, rs, rd);
+				LH(instruction.imm, rs, rd);
 				break;
 			}
 			case 010:
 			{
-				LW(instruction, rs, rd);
-				break;
-			}
-			case 011:
-			{
-				//id
+				LW(instruction.imm, rs, rd);
 				break;
 			}
 			case 100:
 			{
-				LBU(instruction, rs, rd);
+				LBU(instruction.imm, rs, rd);
 				break;
 			}
 			case 101:
 			{
-				LHU(instruction, rs, rd);
+				LHU(instruction.imm, rs, rd);
 				break;
 			}
 			case 110:
 			{
-				LW(instruction, rs, rd);
+				LW(instruction.imm, rs, rd);
 				break;
 			}
 		}
@@ -49,35 +44,35 @@ void IHandler::Handle(IType & instruction, Register rs, Register & rd)
 			case 000:
 			{
 				// addi
-				ADDI(instruction, rs, rd);	
+				ADDI(instruction.imm, rs, rd);	
 				break;
 			}
 			case 001:
 			{
 				// slli
-				SLLI(instruction, rs, rd);
+				SLLI(instruction.imm, rs, rd);
 				break;
 			}
 			case 100:
 			{
-				XORI(instruction, rs, rd);
+				XORI(instruction.imm, rs, rd);
 				break;
 			}
 			case 101:
 			{
 				assert(false && "TODO: Find out which instruction to use");
-				SRLI(instruction, rs, rd);
-				SRAI(instruction, rs, rd);
+				SRLI(instruction.imm, rs, rd);
+				SRAI(instruction.imm, rs, rd);
 				break;
 			}
 			case 110:
 			{
-				ORI(instruction, rs, rd);
+				ORI(instruction.imm, rs, rd);
 				break;
 			}
 			case 111:
 			{
-				ANDI(instruction, rs, rd);
+				ANDI(instruction.imm, rs, rd);
 				break;
 			}
 			default:
