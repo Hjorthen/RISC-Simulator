@@ -1,4 +1,4 @@
-
+set(CMAKE_CXX_STANDARD 11)
 message(STATUS "Starting compilation")
 cmake_minimum_required (VERSION 2.6)
 project (RISC-V-Sim)
