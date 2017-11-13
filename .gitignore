@@ -1,1 +1,9 @@
-*.out\n*.swp
+*.out
+*.swp
+.vs
+*.vcxproj*
+*.sln*
+*.cmake
+CMake*
+Win32/*
+*.dir/*

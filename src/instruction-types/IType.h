@@ -1,3 +1,4 @@
+#pragma once
 #include <stdint.h>
 #include "BitReader.h"
 #include "../Types.h"

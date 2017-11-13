@@ -1,3 +1,4 @@
+#pragma once
 #include <stdint.h>
 #include <assert.h>
 
@@ -19,7 +20,7 @@ public:
 	void Read(T & dst, uint32_t length){
 		uint32_t mask = (1 << length) - 1;
 		dst = src & mask;
-		src >> length;
+		src = src >> length;
 		bitsRead += length;
 	}
 };
