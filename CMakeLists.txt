@@ -9,3 +9,14 @@ file(GLOB_RECURSE HEADERS LIST_DIRECTORIES false src/*.h)
 MESSAGE( STATUS "Compiling files " ${SRC})
 
 add_executable(RISC-V-Sim ${SRC} ${HEADERS})
+
+
+
+enable_testing()
+file(GLOB_RECURSE TASKS1 RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "tests/*/*.bin")
+foreach(test ${TASKS1})
+		get_filename_component(fname ${test} NAME_WE)
+		string(REGEX MATCH "[\\/].*$" testname ${test})
+		add_test(NAME ${testname} COMMAND RISC-V-Sim ${test} ${fname}.res CONFIGURATIONS )
+		MESSAGE(STATUS "Added test " ${testname} " for file " ${test})
+endforeach()

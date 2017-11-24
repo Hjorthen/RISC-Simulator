@@ -7,3 +7,6 @@
 CMake*
 Win32/*
 *.dir/*
+Testing/*
+Makefile
+RISC-V-Sim
