@@ -85,7 +85,7 @@ void RHandler::SRL(Register& rd, const Register rs1, const Register rs2) {
 }
 
 void RHandler::SRA(Register& rd, const Register rs1, const Register rs2) {
-	rd = rs1 - rs2;
+	rd = (signed int) rs1 >> (signed int) rs2;
 }
 
 void RHandler::XOR(Register& rd, const Register rs1, const Register rs2) {
@@ -105,5 +105,5 @@ void RHandler::SLT(Register& rd, const Register rs1, const Register rs2) {
 }
 
 void RHandler::SLTU(Register& rd, const Register rs1, const Register rs2) {
-	rd = rs1 - rs2;
+	rd = (unsigned int) rs1 < (unsigned int) rs2;
 }
