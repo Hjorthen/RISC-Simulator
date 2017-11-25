@@ -13,7 +13,7 @@ public:
 	{}
 
 	~BitReader(){
-		assert(bitsRead <= sizeof(uint32_t));		
+		assert(bitsRead <= sizeof(uint32_t)*8);		
 	}
 
 	template<typename T>

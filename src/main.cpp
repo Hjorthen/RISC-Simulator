@@ -27,10 +27,11 @@ int main(int argc, char** argv) {
 			std::ifstream expected;
 			expected.open(argv[2], std::ios::binary | std::ios::ate);
 			if(!expected.is_open()){
-				std::cout << "Failed to open result file";
+				std::cout << "Failed to open result file: " << argv[2];
 				return -1;
 			}
 			std::streamsize fileSize = expected.tellg();
+			fileSize /= sizeof(Register); //FileSize was in bytes
 			Register * expectedResult = new Register[fileSize];
 			expected.read(reinterpret_cast<char*>(&expectedResult), fileSize);
 			if(memcmp(simulator.RegisterBegin(), expectedResult, fileSize) == 0){
@@ -44,8 +45,9 @@ int main(int argc, char** argv) {
 			std::ofstream dump;
 			dump.open("result.bin", std::ios::binary);
 			for (Simulator::RegisterIterator itr = simulator.RegisterBegin();itr != simulator.RegisterEnd();++itr) {
-				dump << *itr;
+				dump.write(reinterpret_cast<char*>(&(*itr)), sizeof(*itr));
 			}
+			dump.flush();
 			return 0;
 		}
 	}

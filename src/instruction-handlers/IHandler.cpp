@@ -5,32 +5,32 @@ void IHandler::Handle(IType & instruction, Register rs, Register & rd)
 {
 	if (instruction.opcode == 0b0000011) {
 		switch (instruction.funct3) {
-			case 000:
+			case 0b000:
 			{
 				LB(instruction.imm, rs, rd);
 				break;
 			}
-			case 001:
+			case 0b001:
 			{
 				LH(instruction.imm, rs, rd);
 				break;
 			}
-			case 010:
+			case 0b010:
 			{
 				LW(instruction.imm, rs, rd);
 				break;
 			}
-			case 100:
+			case 0b100:
 			{
 				LBU(instruction.imm, rs, rd);
 				break;
 			}
-			case 101:
+			case 0b101:
 			{
 				LHU(instruction.imm, rs, rd);
 				break;
 			}
-			case 110:
+			case 0b110:
 			{
 				LW(instruction.imm, rs, rd);
 				break;
@@ -41,36 +41,40 @@ void IHandler::Handle(IType & instruction, Register rs, Register & rd)
 	{
 		switch (instruction.funct3) 
 		{
-			case 000:
+			case 0b000:
 			{
 				// addi
 				ADDI(instruction.imm, rs, rd);	
 				break;
 			}
-			case 001:
+			case 0b001:
 			{
 				// slli
 				SLLI(instruction.imm, rs, rd);
 				break;
 			}
-			case 100:
+			case 0b100:
 			{
 				XORI(instruction.imm, rs, rd);
 				break;
 			}
-			case 101:
+			case 0b101:
 			{
-				assert(false && "TODO: Find out which instruction to use");
-				SRLI(instruction.imm, rs, rd);
-				SRAI(instruction.imm, rs, rd);
+				IShift shiftIns(instruction.imm);
+				if(shiftIns.shiftType){
+					SRLI(shiftIns.shiftAmount, rs, rd);
+				}
+				else{ 
+					SRAI(shiftIns.shiftAmount, rs, rd);
+				}
 				break;
 			}
-			case 110:
+			case 0b110:
 			{
 				ORI(instruction.imm, rs, rd);
 				break;
 			}
-			case 111:
+			case 0b111:
 			{
 				ANDI(instruction.imm, rs, rd);
 				break;
@@ -85,69 +89,71 @@ void IHandler::Handle(IType & instruction, Register rs, Register & rd)
 }
 
 
-void IHandler::ADDI(const uint16_t imm, const Register rs, Register & rd)
+void IHandler::ADDI(const int16_t imm, const Register rs, Register & rd)
 {
-	rd = imm + rs;
+	rd = (imm) + rs;
 }
 
-void IHandler::SUBI(const uint16_t imm, const Register rs, Register & rd)
+void IHandler::SUBI(const int16_t imm, const Register rs, Register & rd)
 {
 	rd = rs - imm;
 }
 
-void IHandler::SLLI(const uint16_t imm, const Register rs, Register& rd)
+void IHandler::SLLI(const int16_t imm, const Register rs, Register& rd)
 {
 	rd = rs << imm;
 }
 
-void IHandler::SRLI(const uint16_t imm, const Register rs, Register& rd)
+void IHandler::SRLI(const int16_t imm, const Register rs, Register& rd)
 {
 	rd = rs >> imm;
 }
 
-void IHandler::SRAI(const uint16_t imm, const Register rs, Register& rd)
+void IHandler::SRAI(const int16_t imm, const Register rs, Register& rd)
 {
 
 }
 
 // Load byte
-void IHandler::LB(const uint16_t imm, const Register rs, Register& rd)
+void IHandler::LB(const int16_t imm, const Register rs, Register& rd)
 {
 	rd = Memory::mem.Load<int8_t>(rs + imm);
+	extendSign<int8_t>(rd);
 }
 
 // Load halfword 
-void IHandler::LH(const uint16_t imm, const Register rs, Register& rd)
+void IHandler::LH(const int16_t imm, const Register rs, Register& rd)
 {
 	rd = Memory::mem.Load<int16_t>(rs + imm);
+	extendSign<uint16_t>(rd);
 }
 
-void IHandler::LW(const uint16_t imm, const Register rs, Register& rd)
+void IHandler::LW(const int16_t imm, const Register rs, Register& rd)
 {
 	rd = Memory::mem.Load<int32_t>(rs + imm);
 }
 
-void IHandler::LBU(const uint16_t imm, const Register rs, Register& rd)
+void IHandler::LBU(const int16_t imm, const Register rs, Register& rd)
 {
 	rd = Memory::mem.Load<uint8_t>(rs + imm);
 }
 
-void IHandler::LHU(const uint16_t imm, const Register rs, Register& rd)
+void IHandler::LHU(const int16_t imm, const Register rs, Register& rd)
 {
 	rd = Memory::mem.Load<uint16_t>(rs + imm);
 }
 
-void IHandler::XORI(const uint16_t imm, const Register rs, Register& rd)
+void IHandler::XORI(const int16_t imm, const Register rs, Register& rd)
 {
 	rd = rs ^ imm;
 }
 
-void IHandler::ORI(const uint16_t imm, const Register rs, Register& rd)
+void IHandler::ORI(const int16_t imm, const Register rs, Register& rd)
 {
 	rd = rs | imm;
 }
 
-void IHandler::ANDI(const uint16_t imm, const Register rs, Register& rd)
+void IHandler::ANDI(const int16_t imm, const Register rs, Register& rd)
 {
 	rd = rs & imm;
 }
