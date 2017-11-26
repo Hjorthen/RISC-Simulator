@@ -8,6 +8,7 @@
 int main(int argc, char** argv) {
 	if(argc < 2){
 		std::cout << "No file specified to load";
+		std::cin.get();
 		return -1;	
 	}
 	std::ifstream dataStream;
@@ -19,7 +20,9 @@ int main(int argc, char** argv) {
 			dataStream.read(reinterpret_cast<char*>(&ins), sizeof(ins));
 			simulator.execute(ins);
 				for (Simulator::RegisterIterator itr = simulator.RegisterBegin();itr != simulator.RegisterEnd();++itr) {
-					std::cout << *itr << '\t';
+					int i = 0;
+					std::cout << "x" << i << ": " << *itr << '\t';
+					i++;
 				}
 				std::cout << '\n';	
 		}
@@ -28,15 +31,18 @@ int main(int argc, char** argv) {
 			expected.open(argv[2], std::ios::binary | std::ios::ate);
 			if(!expected.is_open()){
 				std::cout << "Failed to open result file";
+				std::cin.get();
 				return -1;
 			}
 			std::streamsize fileSize = expected.tellg();
 			Register * expectedResult = new Register[fileSize];
 			expected.read(reinterpret_cast<char*>(&expectedResult), fileSize);
 			if(memcmp(simulator.RegisterBegin(), expectedResult, fileSize) == 0){
+				std::cin.get();
 				return 0;
 			}
 			else{
+				std::cin.get();
 				return -1;
 			}
 		}
@@ -46,6 +52,7 @@ int main(int argc, char** argv) {
 			for (Simulator::RegisterIterator itr = simulator.RegisterBegin();itr != simulator.RegisterEnd();++itr) {
 				dump << *itr;
 			}
+			std::cin.get();
 			return 0;
 		}
 	}
