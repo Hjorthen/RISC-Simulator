@@ -6,12 +6,12 @@ void RHandler::Handle(RType& instruction, Register& rd, Register rs1, Register r
 		case 000: 
 		{
 			switch (instruction.funct7) {
-				case 0000000: 
+				case 0b0000000: 
 				{
 					ADD(rd, rs1, rs2);
 					break;
 				}
-				case 0100000:
+				case 0b0100000:
 				{
 					SUB(rd, rs1, rs2);
 					break;
@@ -19,35 +19,35 @@ void RHandler::Handle(RType& instruction, Register& rd, Register rs1, Register r
 			}
 			break;
 		}
-		case 001:
+		case 0b001:
 		{
 			SLL(rd, rs1, rs2);
 			break;
 		}
-		case 010:
+		case 0b010:
 		{
 			SLT(rd, rs1, rs2);
 			break;
 		}
-		case 011:
+		case 0b011:
 		{
 			SLTU(rd, rs1, rs2);
 			break;
 		}
-		case 100:
+		case 0b100:
 		{
 			XOR(rd, rs1, rs2);
 			break;
 		}
-		case 101:
+		case 0b101:
 		{
 			switch (instruction.funct7) {
-				case 0000000:
+				case 0b0000000:
 				{
 					SRL(rd, rs1, rs2);
 					break;
 				}
-				case 0100000:
+				case 0b0100000:
 				{
 					SRA(rd, rs1, rs2);
 					break;
@@ -55,15 +55,19 @@ void RHandler::Handle(RType& instruction, Register& rd, Register rs1, Register r
 			}
 			break;
 		}
-		case 110:
+		case 0b110:
 		{
 			OR(rd, rs1, rs2);
 			break;
 		}
-		case 111:
+		case 0b111:
 		{
 			AND(rd, rs1, rs2);
 			break;
+		}
+		default:
+		{
+			assert(false && "Unknown instruction");
 		}
 	}
 }

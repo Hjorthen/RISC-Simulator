@@ -18,21 +18,22 @@ struct BType{
 		reader.Read(opcode, 7);
 		uint16_t imm11;
 		reader.Read(imm11, 1);
-		imm11 = imm11 << 11;
+		imm11 = imm11 << 10;
 		reader.Read(imm, 4);
 		// the field goes from 1:4, not 0:3
 		imm = imm << 1;
 		reader.Read(funct3, 3);
 		reader.Read(rs1, 5);
 		reader.Read(rs2, 5);
-		uint8_t immUpper;
+		uint16_t immUpper;
 		reader.Read(immUpper, 6);
 		immUpper = immUpper << 5;
 		imm = imm | immUpper;
 		uint16_t imm12;
 		reader.Read(imm12, 1);
-		imm12 << 12; 
+		imm12 = imm12 << 11; 
 		imm = imm | imm12 | imm11;
+		extendSign(imm, 12);
 	}
 
 

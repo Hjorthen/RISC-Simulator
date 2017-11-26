@@ -12,12 +12,13 @@ uint32_t BHandler::Handle(BType& instruction, Register rs1, Register rs2){
 			return BLT(instruction.imm, rs1, rs2);
 		case 0b101:
 			return BGE(instruction.imm, rs1, rs2);
-
-
+		default:
+			assert(false && "Unknown instruction");
 	}
+	return 0;
 }
 
-uint32_t BHandler::BEQ(const uint16_t branchAddress, Register rs1, Register rs2){
+uint32_t BHandler::BEQ(const int16_t branchAddress, Register rs1, Register rs2){
 	if(rs1 == rs2)
 		return branchAddress;
 	else
@@ -25,7 +26,7 @@ uint32_t BHandler::BEQ(const uint16_t branchAddress, Register rs1, Register rs2)
 }
 
 
-uint32_t BHandler::BNE(const uint16_t branchAddress, Register rs1, Register rs2){
+uint32_t BHandler::BNE(const int16_t branchAddress, Register rs1, Register rs2){
 	if(rs1 != rs2)
 		return branchAddress;
 	else
@@ -34,7 +35,7 @@ uint32_t BHandler::BNE(const uint16_t branchAddress, Register rs1, Register rs2)
 }
 
 
-uint32_t BHandler::BLT(const uint16_t branchAddress, Register rs1, Register rs2){
+uint32_t BHandler::BLT(const int16_t branchAddress, Register rs1, Register rs2){
 	if(rs1 < rs2)
 		return branchAddress;
 	else
@@ -43,7 +44,7 @@ uint32_t BHandler::BLT(const uint16_t branchAddress, Register rs1, Register rs2)
 }
 
 
-uint32_t BHandler::BGE(const uint16_t branchAddress, Register rs1, Register rs2){
+uint32_t BHandler::BGE(const int16_t branchAddress, Register rs1, Register rs2){
 	if(rs1 >= rs2)
 		return branchAddress;
 	else

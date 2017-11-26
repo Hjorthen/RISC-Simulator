@@ -16,3 +16,10 @@ void extendSign(Register& value){
 			
 };
 
+template<typename T>
+void extendSign(T& value, uint8_t signPos){
+		//Sign extend
+	    T mask = -1 << signPos;
+		uint8_t sign = (value & (1 << (signPos-1))) >> (signPos-1);
+		value = value | (mask*sign);
+}
