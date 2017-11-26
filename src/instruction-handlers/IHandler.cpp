@@ -62,10 +62,10 @@ void IHandler::Handle(IType & instruction, Register rs, Register & rd)
 			{
 				IShift shiftIns(instruction.imm);
 				if(shiftIns.shiftType){
-					SRLI(shiftIns.shiftAmount, rs, rd);
+					SRAI(shiftIns.shiftAmount, rs, rd);
 				}
 				else{ 
-					SRAI(shiftIns.shiftAmount, rs, rd);
+					SRLI(shiftIns.shiftAmount, rs, rd);
 				}
 				break;
 			}
@@ -111,7 +111,7 @@ void IHandler::SRLI(const int16_t imm, const Register rs, Register& rd)
 
 void IHandler::SRAI(const int16_t imm, const Register rs, Register& rd)
 {
-
+	rd = static_cast<SRegister>(rs) >> imm;
 }
 
 // Load byte
