@@ -12,6 +12,9 @@ public:
 		data = static_cast<uint8_t*>(malloc(size));
 		s = size;
 	}
+	~Memory(){
+		free(data);
+	}
 
 	template<typename T>
 	T Load(size_t position) {
