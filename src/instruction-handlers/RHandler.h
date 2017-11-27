@@ -15,4 +15,13 @@ class RHandler {
 		void AND(Register& rd, Register rs1, Register rs2);
 		void SLT(Register& rd, Register rs1, Register rs2);
 		void SLTU(Register& rd, Register rs1, Register rs2);
+		void MUL(Register& rd, Register rs1, Register rs2);
+		void MULH(Register& rd, Register rs1, Register rs2); 
+		void MULHSU(Register& rd, Register rs1, Register rs2); 
+		void MULHU(Register& rd, Register rs1, Register rs2); 
+		void DIV(Register& rd, Register rs1, Register rs2);
+		void DIVU(Register& rd, Register rs1, Register rs2);
+		void REM(Register& rd, Register rs1, Register rs2);
+		void REMU(Register& rd, Register rs1, Register rs2);
+
 };
