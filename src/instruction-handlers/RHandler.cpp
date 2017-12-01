@@ -179,7 +179,7 @@ void RHandler::XOR(Register& rd, const Register rs1, const Register rs2) {
 
 void RHandler::OR(Register& rd, const Register rs1, const Register rs2) {
 	std::cout << "OR" << '\n';
-	rd = rs1|rs2;
+	rd = rs1 | rs2;
 }
 
 void RHandler::AND(Register& rd, const Register rs1, const Register rs2) {

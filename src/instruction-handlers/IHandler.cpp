@@ -1,4 +1,5 @@
 #include "IHandler.h"
+#include "../Types.h"
 #include "../Memory.h"
 #include <iostream>
 
@@ -92,8 +93,10 @@ void IHandler::Handle(IType & instruction, Register rs, Register & rd)
 
 void IHandler::ADDI(const int16_t imm, const Register rs, Register & rd)
 {
+	uint32_t simm = imm;
+	extendSign(simm, 12);
 	std::cout << "ADDI" << '\n';
-	rd = (imm) + rs;
+	rd = (simm) + rs;
 }
 
 void IHandler::SUBI(const int16_t imm, const Register rs, Register & rd)

@@ -32,7 +32,8 @@ class Program{
 		}
 		
 	Instruction* FetchInstruction(uint32_t offset){
-		assert(begin + offset < end);
+		if(begin + offset > end)
+			return NULL;
 		return begin + offset;
 	}
 };	

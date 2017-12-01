@@ -5,6 +5,7 @@
 #include "instruction-types/BType.h"
 #include "instruction-types/RType.h"
 #include <iostream>
+#include "instruction-types/UType.h"
 
 void Simulator::execute(Instruction i) {
 	uint32_t opcode = i & opcodeMask;
@@ -24,17 +25,18 @@ void Simulator::execute(Instruction i) {
 	// LUI
 	case 0b0110111:
 	{
-		BitReader reader(i);
-		uint8_t reg;
-		int32_t upper;
-		reader.Read(reg, 7);
-		reg = 0;
-		reader.Read(reg, 5);
-		reader.Read(upper, 20);	
-		Register& dst = context.regi[reg];
-		upper = upper << 12;
-		dst = dst | upper;
-		std::cout << "LUI " << dst << " " << upper << '\n';
+		UType u(i);
+		Register& dst = context.regi[u.reg];
+		dst = dst | u.upper;
+		std::cout << "LUI " << dst << " " << u.upper << '\n';
+		break;
+	}
+	//AUPC
+	case 0b0010111:
+	{
+		UType u(i);
+		Register& dst = context.regi[u.reg];
+	    dst = PC*4 + u.upper;	
 		break;
 	}
 	// I-instruction
@@ -64,16 +66,17 @@ void Simulator::execute(Instruction i) {
 		break;
 	}	
 	// JALR
-	case 0b1101111:
+	case 0b1100111:
 	{
 		IType iType(i);
-		uint32_t jumpTarget = iType.imm + context.regi[iType.rs1];
+		int32_t jumpTarget = iType.imm + context.regi[iType.rs1];
+		jumpTarget = ~1 & jumpTarget;
 		context.regi[iType.rd] = (PC+1)*4;
-		branch = jumpTarget;	
+		PC = jumpTarget/4;
 		break;
 	}
 	// JAL
-	case 0b1100111:
+	case 0b1101111:
 	{
 		int32_t imm;
 		{
@@ -84,11 +87,11 @@ void Simulator::execute(Instruction i) {
 			reader.Read(rd, 5);
 			uint32_t part;
 			reader.Read(part, 8);
-			imm |= part << 11;
+			imm = part << 11;
 			reader.Read(part, 1);
 			imm |= part << 10;
 			reader.Read(part, 10);
-			imm |= part << 9;
+			imm |= part << 1;
 			reader.Read(part, 1);
 			imm |= part << 19;		
 			extendSign(imm, 20);
@@ -100,8 +103,13 @@ void Simulator::execute(Instruction i) {
 	}
 		// S-instruction
 	case 0b0100011:
+	{
+		SType ins(i);
+		Register src = context.regi[ins.src];
+		Register base = context.regi[ins.base];
+		sHandler.Handle(ins, src, base);
 		break;
-
+	}
 	default:
 		{
 			assert(false && "unknown instruction");

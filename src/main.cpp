@@ -23,8 +23,8 @@ int main(int argc, char** argv) {
 				std::cout << "x" << i << ": " << *itr << '\t';
 				i++;
 			}
-
-			std::cout << '\n' << '\n';	
+			std::cout << "PC: " << simulator.GetPC();
+			std::cout << "\n \n";	
 	}
 	if(argc > 2){
 		std::ifstream expected;
@@ -38,7 +38,8 @@ int main(int argc, char** argv) {
 		Register * expectedResult = new Register[registerCount];
 		expected.seekg(std::ios::beg);
 		expected.read(reinterpret_cast<char*>(expectedResult), fileSize);
-		if(memcmp(simulator.RegisterBegin(), expectedResult, fileSize) == 0){
+		const int aXOffset = 10;
+		if(memcmp(simulator.RegisterBegin() + aXOffset, expectedResult + aXOffset, fileSize-aXOffset*4) == 0){
 			delete[] expectedResult;
 			return 0;
 		}

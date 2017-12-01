@@ -17,14 +17,14 @@ public:
 	}
 
 	template<typename T>
-	T Load(size_t position) {
-		assert(position + sizeof(T) < s);
+	T Load(uint32_t position) {
+		assert(data + position + sizeof(T) <= data + s);
 		return *reinterpret_cast<T*>(data + position);
 	}
 
 	template<typename T>
-	void Store(size_t position, T value) {
-		assert(position + sizeof(T) < s);
+	void Store(uint32_t position, T value) {
+		assert(data + position + sizeof(T) <= data + s);
 		*reinterpret_cast<T*>(data + position) = value;
 	}
 

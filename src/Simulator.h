@@ -5,7 +5,9 @@
 #include "instruction-handlers/BHandler.h"
 #include "instruction-handlers/RHandler.h"
 #include "Memory.h"
+#include "instruction-handlers/SHandler.h"
 #include "Program.h"
+
 struct Context {
 	Context(){
 		for(int i = 0; i < 32; ++i){
@@ -21,6 +23,7 @@ class Simulator{
 	IHandler iHandler;
 	BHandler bHandler;
 	RHandler rHandler;
+	SHandler sHandler;
 	Program * program;
 	uint32_t PC;
 	bool isRunning;
