@@ -18,17 +18,19 @@ int main(int argc, char** argv) {
 	Instruction ins;
 	Simulator simulator;
 	simulator.LoadProgram(&program);
+	int cycle_count = 0;
 	while (simulator.Running() && simulator.ExecuteNext()){
 		int i = 0;
+		++cycle_count;
 			for (Simulator::RegisterIterator itr = simulator.RegisterBegin();itr != simulator.RegisterEnd();++itr) {
-				std::cout << std::setfill('0') << std::setw(1) << "x" << std::setw(2) << std::dec << i << " : " << "0x"  << std::setw(8) << std::hex << *itr << std::setw(1) << std::setfill(' ') << " ";
+				std::cout << std::setfill('0') << std::setw(1) << "x" << std::setw(2) << std::dec << i << " : " << "0x"  << std::setw(8) << std::hex << *itr << std::setw(1) << std::setfill(' ') << " |  ";
 				i++;
 				if(i%8 == 0)
 				{
 					std::cout << std::endl;
 				}
 			}
-			std::cout << "PC: " << simulator.GetPC();
+			std::cout << "PC: " << simulator.GetPC() << " | " << "CC: " << cycle_count;
 			std::cout << "\n \n";	
 	}
 	if(argc > 2){

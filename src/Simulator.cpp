@@ -68,20 +68,24 @@ void Simulator::execute(Instruction i) {
 	// JALR
 	case 0b1100111:
 	{
+		std::cout << "JALR" << '\n';
 		IType iType(i);
 		int32_t jumpTarget = iType.imm + context.regi[iType.rs1];
+		// Set least significant bit to 0
 		jumpTarget = ~1 & jumpTarget;
 		context.regi[iType.rd] = (PC+1)*4;
 		PC = jumpTarget/4;
+		PC -= 1;
 		break;
 	}
 	// JAL
 	case 0b1101111:
 	{
+		std::cout << "JAL" << '\n';
 		int32_t imm;
+		uint8_t rd;
 		{
 			uint8_t opcode;
-			uint8_t rd;
 			BitReader reader(i);
 			reader.Read(opcode, 7);
 			reader.Read(rd, 5);
@@ -98,7 +102,7 @@ void Simulator::execute(Instruction i) {
 		}
 		branch = imm;
 		// Convert PC to bytes and store it
-		context.regi[0x1] = (PC+1)*4;
+		context.regi[rd] = (PC+1)*4;
 		break;
 	}
 		// S-instruction

@@ -31,7 +31,7 @@ class Simulator{
 	public: 	
 		typedef Register* RegisterIterator;
 		Simulator() : isRunning(true) {
-			context.regi[0x2] = 1024; 
+			context.regi[0x2] = 0x7ffffff0; 
 		};
 		uint32_t GetPC() { return PC; }
 		bool Running() { return isRunning; }

@@ -1,4 +1,4 @@
 #include "Memory.h"
 
 
-Memory Memory::mem(1024);
+Memory Memory::mem(0x7fffffff);
