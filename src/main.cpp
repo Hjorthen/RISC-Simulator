@@ -34,26 +34,16 @@ int main(int argc, char** argv) {
 			std::cout << "\n \n";	
 	}
 	if(argc > 2){
-		std::ifstream expected;
-		expected.open(argv[2], std::ios::binary | std::ios::ate);
-		if(!expected.is_open()){
-			std::cout << "Failed to open result file: " << argv[2];
-			return -1;
+		std::ofstream dump;
+		dump.open(argv[2], std::ios::binary);
+		std::cout << "Writing to " << argv[2];
+		for (Simulator::RegisterIterator itr = simulator.RegisterBegin();itr != simulator.RegisterEnd();++itr) {
+			dump.write(reinterpret_cast<char*>(&(*itr)), sizeof(*itr));
 		}
-		std::streamsize fileSize = expected.tellg();
-		uint32_t registerCount = fileSize / sizeof(Register);
-		Register * expectedResult = new Register[registerCount];
-		expected.seekg(std::ios::beg);
-		expected.read(reinterpret_cast<char*>(expectedResult), fileSize);
-		const int aXOffset = 10;
-		if(memcmp(simulator.RegisterBegin() + aXOffset, expectedResult + aXOffset, fileSize-aXOffset*4) == 0){
-			delete[] expectedResult;
-			return 0;
-		}
-		else{
-			delete[] expectedResult;
-			return -1;
-		}
+		dump.flush();
+		dump.close();
+		return 0;
+
 	}
 	else{	
 		std::ofstream dump;

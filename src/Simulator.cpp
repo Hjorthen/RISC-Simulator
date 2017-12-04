@@ -75,6 +75,7 @@ void Simulator::execute(Instruction i) {
 		jumpTarget = ~1 & jumpTarget;
 		context.regi[iType.rd] = (PC+1)*4;
 		PC = jumpTarget/4;
+		// We have to subtract because we increment PC at the end of the cycle regardless of jumping
 		PC -= 1;
 		break;
 	}

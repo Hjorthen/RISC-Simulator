@@ -13,11 +13,11 @@ add_executable(RISC-V-Sim ${SRC} ${HEADERS})
 
 
 enable_testing()
-file(GLOB_RECURSE TASKS1 RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "tests/*/*.bin")
+file(GLOB_RECURSE TASKS1 RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "tests/task4/*.bin")
 foreach(test ${TASKS1})
 		get_filename_component(fname ${test} NAME_WE)
 		get_filename_component(fdir ${test} DIRECTORY)
 		string(REGEX MATCH "[\\/].*$" testname ${test})
-		add_test(NAME ${testname} COMMAND RISC-V-Sim ${test} ${fdir}/${fname}.res CONFIGURATIONS )
+		add_test(NAME ${testname} COMMAND RISC-V-Sim ${test} results/${fname}.res CONFIGURATIONS )
 		MESSAGE(STATUS "Added test " ${testname} " for file " ${test})
 endforeach()
