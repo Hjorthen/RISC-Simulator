@@ -11,8 +11,25 @@ uint32_t BHandler::Handle(BType& instruction, Register rs1, Register rs2){
 			return BLT(instruction.imm, rs1, rs2);
 		case 0b101:
 			return BGE(instruction.imm, rs1, rs2);
+		case 0b110:
+			return BLTU(instruction.imm, rs1, rs2);
+		case 0b111:
+			return BGEU(instruction.imm, rs1, rs2);
 		default:
 			assert(false && "Unknown instruction");
+	}
+	return 0;
+}
+
+uint32_t BHandler::BLTU(const int16_t branchAddress, Register rs1, Register rs2){
+	if(rs1 < rs2)
+		return branchAddress;
+	return 0;	
+}
+
+uint32_t BHandler::BGEU(const int16_t branchAddress, Register rs1, Register rs2){
+	if(rs1 >= rs2){
+		return branchAddress;
 	}
 	return 0;
 }

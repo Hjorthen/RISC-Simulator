@@ -81,6 +81,16 @@ void IHandler::Handle(IType & instruction, Register rs, Register & rd)
 				ANDI(instruction.imm, rs, rd);
 				break;
 			}
+			case 0b010:
+			{
+				SLTI(instruction.imm, rs, rd);
+				break;
+			}
+			case 0b011:
+			{
+				SLTIU(instruction.imm, rs, rd);
+				break;
+			}
 			default:
 			{
 				assert(false && "Unknown instruction");
@@ -90,6 +100,15 @@ void IHandler::Handle(IType & instruction, Register rs, Register & rd)
 	
 }
 
+void IHandler::SLTI(const int16_t imm, const Register rs, Register & rd)
+{
+	rd = (*reinterpret_cast<const SRegister*>(&rs) < imm);
+}
+
+void IHandler::SLTIU(const int16_t imm, const Register rs, Register & rd)
+{
+	rd = (rs < *reinterpret_cast<const uint16_t*>(&imm));
+}
 
 void IHandler::ADDI(const int16_t imm, const Register rs, Register & rd)
 {

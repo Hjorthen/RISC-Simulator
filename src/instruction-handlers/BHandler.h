@@ -10,4 +10,6 @@ class BHandler{
 		uint32_t BNE(const int16_t branchAddress, Register rs1, Register rs2);
 		uint32_t BLT(const int16_t branchAddress, Register rs1, Register rs2);
 		uint32_t BGE(const int16_t branchAddress, Register rs1, Register rs2);
+		uint32_t BLTU(const int16_t branchAddress, Register rs1, Register rs2);
+		uint32_t BGEU(const int16_t branchAddress, Register rs1, Register rs2);
 };

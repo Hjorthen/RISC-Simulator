@@ -20,5 +20,7 @@ class IHandler{
 		void XORI(const int16_t imm, const Register rs, Register & rd);
 		void ORI(const int16_t imm, const Register rs, Register & rd);
 		void ANDI(const int16_t imm, const Register rs, Register & rd);
+		void SLTIU(const int16_t imm, const Register rs, Register & rd);
+		void SLTI(const int16_t imm, const Register rs, Register & rd);	
 };
 
